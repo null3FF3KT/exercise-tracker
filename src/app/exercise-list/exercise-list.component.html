@@ -1,0 +1,27 @@
+<h2 class="text-center mb-20">Exercise List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Duration</th>
+      <th>Distance</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let exercise of exercises$ | async">
+      <td>{{ exercise.date | date:'shortDate' }}</td>
+      <td>{{ exercise.exerciseType?.typeName }}</td>
+      <td>{{ exercise.duration }}</td>
+      <td>{{ exercise.distance ? (exercise.distance | number:'1.2-2') + ' km' : 'N/A' }}</td>
+      <td>
+        <button (click)="editExercise(exercise.id)">Edit</button>
+        <button class="delete" (click)="deleteExercise(exercise.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-center mt-20">
+  <button (click)="addExercise()">Add New Exercise</button>
+</div>

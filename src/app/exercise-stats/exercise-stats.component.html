@@ -1,0 +1,36 @@
+<h2 class="text-center mb-20">Exercise Statistics</h2>
+
+<div *ngIf="stats$ | async as stats">
+  <h3>Overall Statistics</h3>
+  <ul>
+    <li>Days since beginning: {{ stats.daysSinceBeginning }}</li>
+    <li>Total duration: {{ stats.totalDuration }}</li>
+    <li>Average duration: {{ stats.averageDuration }}</li>
+    <li>Total exercises: {{ stats.totalExercises }}</li>
+    <li>Number of active days: {{ stats.numberOfDays }}</li>
+    <li>Total distance: {{ stats.totalDistance | number:'1.2-2' }} km</li>
+    <li>Average speed: {{ stats.averageMph | number:'1.2-2' }} km/h</li>
+  </ul>
+</div>
+
+<div *ngIf="fastestExercises$ | async as fastestExercises">
+  <h3 class="mt-20">Fastest Times by Distance</h3>
+  <table *ngIf="fastestExercises.length > 0">
+    <thead>
+      <tr>
+        <th>Distance (km)</th>
+        <th>Fastest Time</th>
+        <th>Date Achieved</th>
+        <th>Actual Distance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exercise of fastestExercises">
+        <td>{{ exercise.distanceGroup }}</td>
+        <td>{{ exercise.fastestTime }}</td>
+        <td>{{ exercise.dateAchieved | date:'shortDate' }}</td>
+        <td>{{ exercise.actualDistance | number:'1.2-2' }} km</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
