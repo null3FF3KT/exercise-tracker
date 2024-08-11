@@ -7,11 +7,15 @@ export const routes: Routes = [
     loadComponent: () => import('./exercise-list/exercise-list.component').then(m => m.ExerciseListComponent)
   },
   {
-    path: 'add-exercise',
+    path: 'exercises/add',
     loadComponent: () => import('./exercise-form/exercise-form.component').then(m => m.ExerciseFormComponent)
   },
   {
-    path: 'stats',
+    path: 'exercises/edit/:id',
+    loadComponent: () => import('./exercise-form/exercise-form.component').then(m => m.ExerciseFormComponent)
+  },
+  {
+    path: 'exercises/stats',
     loadComponent: () => import('./exercise-stats/exercise-stats.component').then(m => m.ExerciseStatsComponent)
   },
 ];

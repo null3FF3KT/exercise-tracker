@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExerciseService } from '../exercise.service';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exercise-stats',
@@ -14,7 +15,10 @@ export class ExerciseStatsComponent implements OnInit, OnDestroy {
   fastestExercises$ = this.exerciseService.fastestExercises$;
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private exerciseService: ExerciseService) {}
+  constructor(
+    private exerciseService: ExerciseService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadStats();
@@ -40,5 +44,13 @@ export class ExerciseStatsComponent implements OnInit, OnDestroy {
       .subscribe({
         error: error => console.error('Error fetching fastest exercises:', error)
       });
+  }
+
+  viewList() {
+    this.router.navigate(['/exercises']);
+  }
+  
+  addExercise() {
+    this.router.navigate(['/exercises/add']);
   }
 }

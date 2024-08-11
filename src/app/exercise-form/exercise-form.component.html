@@ -1,1 +1,42 @@
-<p>exercise-form works!</p>
+<h2 class="text-center mb-20">Add New Exercise</h2>
+<form (ngSubmit)="onSubmit(exerciseForm)" #exerciseForm="ngForm">
+	<div class="mt-20">
+		<button (click)="viewStats()">View Stats</button>
+		<button (click)="viewList()">View List</button>
+	</div>
+  <div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" [(ngModel)]="exercise.date" required #dateInput="ngModel">
+    <div *ngIf="dateInput.invalid && (dateInput.dirty || dateInput.touched)" class="alert alert-danger">
+      Date is required.
+    </div>
+  </div>
+  <div>
+    <label for="exerciseType">Type:</label>
+    <select id="exerciseType" name="exerciseType" [(ngModel)]="exercise.exerciseTypeId" required #typeInput="ngModel">
+      <option *ngFor="let type of exerciseTypes$ | async" [value]="type.id">{{ type.typeName }}</option>
+    </select>
+    <div *ngIf="typeInput.invalid && (typeInput.dirty || typeInput.touched)" class="alert alert-danger">
+      Exercise type is required.
+    </div>
+  </div>
+  <div>
+		<label for="duration">Duration (HH:MM:SS):</label>
+		<input type="text" id="duration" name="duration" 
+					 [(ngModel)]="exercise.duration" 
+					 required 
+					 pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$"
+					 #durationInput="ngModel">
+		<div *ngIf="durationInput.invalid && (durationInput.dirty || durationInput.touched)" class="alert alert-danger">
+			<div *ngIf="durationInput.errors?.['required']">Duration is required.</div>
+			<div *ngIf="durationInput.errors?.['pattern']">Invalid duration format. Use HH:MM:SS.</div>
+		</div>
+	</div>
+  <div>
+    <label for="distance">Distance (mi):</label>
+    <input type="number" id="distance" name="distance" [(ngModel)]="exercise.distance" step="0.01">
+  </div>
+  <div class="text-center mt-20">
+    <button type="submit" [disabled]="!exerciseForm.form.valid">Add Exercise</button>
+  </div>
+</form>

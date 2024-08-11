@@ -45,6 +45,12 @@ export class ExerciseService {
 
   constructor(private http: HttpClient) { }
 
+  getExerciseTypes(): Observable<{ id: number; typeName: string }[]> {
+    return this.http.get<{ id: number; typeName: string }[]>(`${this.apiUrl}/exercisetypes`).pipe(
+      catchError(this.handleError<{ id: number; typeName: string }[]>('getExerciseTypes', []))
+    );
+  }
+
   loadExercises(): Observable<Exercise[]> {
     return this.http.get<Exercise[]>(`${this.apiUrl}/exercises`).pipe(
       tap(exercises => this.exercisesSubject.next(exercises)),

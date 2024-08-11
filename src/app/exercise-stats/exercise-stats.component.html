@@ -1,5 +1,8 @@
 <h2 class="text-center mb-20">Exercise Statistics</h2>
-
+<div class="mt-20">
+  <button (click)="addExercise()">Add New Exercise</button>
+  <button (click)="viewList()">View List</button>
+</div>
 <div *ngIf="stats$ | async as stats">
   <h3>Overall Statistics</h3>
   <ul>

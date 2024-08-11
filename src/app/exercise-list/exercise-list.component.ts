@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ExerciseService, Exercise } from '../exercise.service';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -14,7 +14,10 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   exercises$ = this.exerciseService.exercises$;
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private exerciseService: ExerciseService) {}
+  constructor(
+    private exerciseService: ExerciseService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadExercises();
@@ -49,8 +52,11 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
     }
   }
 
+  viewStats(): void {
+    this.router.navigate(['/exercises/stats']);
+  }
+
   addExercise(): void {
-    // TODO: Implement navigation to add exercise form
-    console.log('Navigate to add exercise form');
+    this.router.navigate(['/exercises/add']);
   }
 }
