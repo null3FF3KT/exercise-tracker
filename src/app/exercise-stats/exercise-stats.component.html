@@ -11,8 +11,8 @@
     <li>Average duration: {{ stats.averageDuration }}</li>
     <li>Total exercises: {{ stats.totalExercises }}</li>
     <li>Number of active days: {{ stats.numberOfDays }}</li>
-    <li>Total distance: {{ stats.totalDistance | number:'1.2-2' }} km</li>
-    <li>Average speed: {{ stats.averageMph | number:'1.2-2' }} km/h</li>
+    <li>Total distance: {{ stats.totalDistance | number:'1.2-2' }} mi</li>
+    <li>Average speed: {{ stats.averageMph | number:'1.2-2' }} mi/h</li>
   </ul>
 </div>
 
@@ -21,7 +21,7 @@
   <table *ngIf="fastestExercises.length > 0">
     <thead>
       <tr>
-        <th>Distance (km)</th>
+        <th>Distance (mi)</th>
         <th>Fastest Time</th>
         <th>Date Achieved</th>
         <th>Actual Distance</th>
@@ -32,7 +32,7 @@
         <td>{{ exercise.distanceGroup }}</td>
         <td>{{ exercise.fastestTime }}</td>
         <td>{{ exercise.dateAchieved | date:'shortDate' }}</td>
-        <td>{{ exercise.actualDistance | number:'1.2-2' }} km</td>
+        <td>{{ exercise.actualDistance | number:'1.2-2' }} mi</td>
       </tr>
     </tbody>
   </table>
