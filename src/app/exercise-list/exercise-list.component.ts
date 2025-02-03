@@ -13,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class ExerciseListComponent implements OnInit, OnDestroy {
   exercises$ = this.exerciseService.exercises$;
   private unsubscribe$ = new Subject<void>();
-
+  
   constructor(
     private exerciseService: ExerciseService,
     private router: Router
@@ -37,8 +37,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   }
 
   editExercise(id: number): void {
-    // TODO: Implement edit functionality
-    console.log('Edit exercise:', id);
+    this.router.navigate(['/exercises/edit', id]);
   }
 
   deleteExercise(id: number): void {

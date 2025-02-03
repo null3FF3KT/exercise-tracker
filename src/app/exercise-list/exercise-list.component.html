@@ -4,26 +4,39 @@
   <button (click)="addExercise()">Add New Exercise</button>
   <button (click)="viewStats()">View Stats</button>
 </div>
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Type</th>
-      <th>Duration</th>
-      <th>Distance</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let exercise of exercises$ | async">
-      <td>{{ exercise.date | date:'shortDate' }}</td>
-      <td>{{ exercise.exerciseType?.typeName }}</td>
-      <td>{{ exercise.duration }}</td>
-      <td>{{ exercise.distance ? (exercise.distance | number:'1.2-2') + ' mi' : 'N/A' }}</td>
-      <td>
-        <button (click)="editExercise(exercise.id)">Edit</button>
-        <button class="delete" (click)="deleteExercise(exercise.id)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+<ng-container *ngIf="exercises$ | async as exercises; else loading">
+  <div *ngIf="exercises.length > 0; else noData">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Duration</th>
+          <th>Distance</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exercise of exercises">
+          <td>{{ exercise.date | date:'shortDate' }}</td>
+          <td>{{ exercise.exerciseType?.typeName }}</td>
+          <td>{{ exercise.duration }}</td>
+          <td>{{ exercise.distance ? (exercise.distance | number:'1.2-2') + ' mi' : 'N/A' }}</td>
+          <td>
+            <button (click)="editExercise(exercise.id)">Edit</button>
+            <button class="delete" (click)="deleteExercise(exercise.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div>Loading exercises...</div>
+</ng-template>
+
+<ng-template #noData>
+  <div>No exercises found. Click "Add New Exercise" to get started.</div>
+</ng-template>

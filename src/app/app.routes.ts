@@ -12,7 +12,7 @@ export const routes: Routes = [
   },
   {
     path: 'exercises/edit/:id',
-    loadComponent: () => import('./exercise-form/exercise-form.component').then(m => m.ExerciseFormComponent)
+    loadComponent: () => import('./exercise-edit/exercise-edit.component').then(m => m.ExerciseEditComponent)
   },
   {
     path: 'exercises/stats',

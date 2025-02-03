@@ -32,7 +32,7 @@ export interface FastestExercise {
   providedIn: 'root'
 })
 export class ExerciseService {
-  private apiUrl = 'http://localhost:5189/api';
+  private apiUrl = 'http://127.0.0.1:5189/api';
   
   private exercisesSubject = new BehaviorSubject<Exercise[]>([]);
   exercises$ = this.exercisesSubject.asObservable();
@@ -53,10 +53,16 @@ export class ExerciseService {
 
   loadExercises(): Observable<Exercise[]> {
     return this.http.get<Exercise[]>(`${this.apiUrl}/exercises`).pipe(
-      tap(exercises => this.exercisesSubject.next(exercises)),
+      map(exercises => exercises.sort((a, b) => 
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      )),
+      tap(exercises => {
+        console.log("load exercises: ", exercises);
+        this.exercisesSubject.next(exercises);
+      }),
       catchError(this.handleError<Exercise[]>('loadExercises', []))
     );
-  }
+  } 
 
   getExercise(id: number): Observable<Exercise | undefined> {
     return this.exercises$.pipe(
